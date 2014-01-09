@@ -1,4 +1,4 @@
-# Roundcube modification allowing selected IMAP servers based on user login name
+# roundcube-multiple-imap
 
 Allows roundcube to select the IMAP server based on a users login name.
 
