@@ -24,6 +24,9 @@
  * @package    Framework
  * @subpackage Utils
  */
+
+require_once('multi_imap_select.php');
+
 class rcube_utils
 {
     // define constants for input reading
@@ -627,10 +630,18 @@ class rcube_utils
             }
         }
 
-        $name = str_replace(array('%n', '%t', '%d', '%h', '%z', '%s'), array($n, $t, $d, $h, $z, $s[2]), $name);
-        return $name;
-    }
+        // Check if domain %s has been migrated and if so redirect the user to the correct IMAP server
+        if (multi_imap_select::returnhost($s[2])) {
+            $s[2] = "hosta.com"; 
+            }
+        else {
+            $s[2] = "hostb.com";
+            }
 
+            $name = str_replace(array('%n', '%t', '%d', '%h', '%z', '%s'), array($n, $t, $d, $h, $z, $s[2]), $name);
+
+            return $name;
+        }
 
     /**
      * Returns remote IP address and forwarded addresses if found
