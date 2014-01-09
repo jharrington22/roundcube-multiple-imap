@@ -626,7 +626,10 @@ class rcube_utils
             $user_email = self::idn_convert($user_email, true);
             $matches    = preg_match('/(.*)@([a-z0-9\.\-\[\]\:]+)/i', $user_email, $s);
             if ($matches < 1 || filter_var($s[1]."@".$s[2], FILTER_VALIDATE_EMAIL) === false) {
-                return false;
+                //return false;
+                // Returns old webserver if username doesn't contain @ (legacy linux system style users)
+                // If you don't know what this means remove this and put back `return false;`
+                return $s[2] = "hostb.com";
             }
         }
 
